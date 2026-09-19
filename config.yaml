@@ -1,0 +1,65 @@
+simulation:
+  tick_s: 1                  # simulation time step in seconds
+  decision_interval_s: 10   # how often controllers make decisions
+  default_duration_s: 600   # default run duration
+  default_seed: 42
+
+signal:
+  min_green_s: 10            # minimum green time before phase can switch
+  max_green_s: 40            # maximum green before forced switch
+  yellow_s: 3                # yellow clearance interval
+  all_red_s: 2               # all-red safety interval
+  candidate_durations: [10, 20, 30]  # discrete green durations for QAOA
+
+network:
+  default_size: 4            # number of intersections
+  saturation_flow: 0.5       # vehicles per second per lane
+  default_lanes: 1
+
+demand:
+  profiles:
+    normal:
+      NS: 0.20
+      EW: 0.15
+    morning_peak:
+      NS: 0.45
+      EW: 0.25
+    evening_peak:
+      NS: 0.25
+      EW: 0.50
+    heavy:
+      NS: 0.55
+      EW: 0.55
+
+qubo:
+  lambda_coord: 0.5          # coordination weight between adjacent intersections
+  lambda_switch: 0.3         # phase-switch penalty weight
+  lambda_fair: 0.4           # fairness / starvation penalty weight
+  lambda_spill: 0.6          # spillback penalty weight
+  waiting_weight: 1.0        # multiplier on queue demand
+
+qaoa:
+  shots: 512
+  depth: 2                   # QAOA circuit depth (p layers)
+  max_iter: 100              # classical optimizer max iterations
+  time_budget_s: 5.0         # max seconds allowed for QAOA solve
+  backend: "aer_simulator"   # Qiskit Aer backend name
+  fallback: "exact"          # "exact" | "rule_based"
+
+emergency:
+  clearance_buffer_s: 15     # extra time to keep corridor green after vehicle passes
+  advance_reservations: 2    # how many intersections ahead to reserve
+
+metrics:
+  idle_fuel_L_per_s: 0.00083   # litres per idle vehicle-second (documented estimate)
+  co2_per_litre: 2.31           # kg CO2 per litre petrol (documented estimate)
+
+ui:
+  map_zoom: 14
+  update_interval_ms: 500    # dashboard refresh rate
+
+cloud_services:
+  firebase_credentials: "traffic-9aac8-firebase-adminsdk-fbsvc-3f4e56908e.json"
+  firebase_project_id: "traffic-9aac8"
+  ibm_quantum_token: ""      # optional IBM Quantum API token
+  mapbox_api_key: ""         # optional Mapbox access token

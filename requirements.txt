@@ -1,0 +1,21 @@
+numpy==2.2.6
+pandas==2.3.3
+networkx==3.4.2
+streamlit==1.64.0
+folium==0.20.0
+streamlit-folium==0.26.2
+matplotlib==3.10.9
+qiskit==2.5.2
+qiskit-aer==0.17.2
+PyYAML==6.0.3
+pytest==9.1.1
+scipy==1.15.3
+python-dotenv>=1.0.0
+firebase-admin>=6.0.0
+
+# Optional (for PennyLane backend):
+# pennylane>=0.38.0
+
+# Optional (for SUMO adapter):
+# eclipse-sumo>=1.20.0
+# traci>=1.20.0
